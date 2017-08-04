@@ -3,11 +3,9 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="Dept" type="com.qfedu.domain.Department" />
-		<typeAlias alias="Emp" type="com.qfedu.domain.Employee" />
+		<typeAlias alias="User" type="com.qfedu.domain.User" />
 	</typeAliases>
 	<mappers>
-		<mapper resource="com/qfedu/mapper/DeptMapper.xml" />
-		<mapper resource="com/qfedu/mapper/EmpMapper.xml" />
+		<mapper resource="com/qfedu/mapper/UserMapper.xml" />
 	</mappers>
 </configuration>

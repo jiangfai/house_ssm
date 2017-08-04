@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private int uid;
 	private String username;
 	private String password;
 	private String tel;
@@ -18,11 +19,21 @@ public class User implements Serializable {
 		this.password = password;
 	}
 	
-	public User(String username, String password, String tel, String realname) {
+	public User(int uid,String username, String password, String tel, String realname) {
+		this.uid = uid;
 		this.username = username;
 		this.password = password;
 		this.tel = tel;
 		this.realname = realname;
+	}
+
+	
+	public int getUid() {
+		return uid;
+	}
+
+	public void setUid(int uid) {
+		this.uid = uid;
 	}
 
 	public String getUsername() {
