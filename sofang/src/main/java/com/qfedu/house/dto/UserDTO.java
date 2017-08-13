@@ -1,9 +1,12 @@
 package com.qfedu.house.dto;
 
+import javax.validation.Valid;
+
 import com.qfedu.house.domain.User;
 
 public class UserDTO {
 
+	@Valid
 	private User user;
 	private String ipAdress;
 	

@@ -36,25 +36,53 @@ public class UserController {
 	
 	@GetMapping("/to_login")
 	public String toLogin(Model model){
+		UserDTO userDTO=new UserDTO();
 		User user=new User();
-		model.addAttribute("user", user);
+		userDTO.setUser(user);
+		model.addAttribute("userDTO", userDTO);
 		return "login";
 	}
 	
 	@PostMapping("/login")
 	public String login(HttpServletRequest req,@Valid UserDTO userDTO,Errors errors,Model model){
+		HttpSession session=req.getSession();
+		String codeFromServer = (String) session.getAttribute("code");
+		String code=userDTO.getCode();
+		String hint=null;
+		String viewName="login";
+		if(codeFromServer!=null &&codeFromServer.equals(code)){
 		if(errors.hasErrors()){
-			model.addAttribute("hint", "请输入有效的登录信息");
-			return "login";
+			hint="请输入有效的登录信息";
 		}else{
 			String ipAddress=req.getRemoteAddr();
+			userDTO.setIpAdress(ipAddress);
 			if(userService.login(userDTO)){
-				return "redirect:index";
+				viewName="redirect:index";
 			}else{
-				model.addAttribute("hint", "输入的用户名或密码有误");
-				return "login";
+				hint="输入的用户名或密码有误";
 			}
 		}
-		
+	}else{
+		hint="请输入正确的验证码";
 	}
+		if(hint!=null){
+		model.addAttribute("hint",hint);
+		}
+		return viewName;
+	}
+	
+	@GetMapping("/to_register")
+	public String toRegister(Model model){
+		User user=new User();
+		model.addAttribute("user",user);
+		
+		return "register";
+	}
+	
+	@PostMapping("/register")
+	public String register(){
+		
+		return "register";
+	}
+	
 }
