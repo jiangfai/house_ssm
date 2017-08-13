@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qfedu.house.domain.User;
+import com.qfedu.house.dto.UserDTO;
 import com.qfedu.house.service.UserService;
 import com.qfedu.house.util.CommonUtil;
 
@@ -41,13 +42,13 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public String login(HttpServletRequest req,@Valid User user,Errors errors,Model model){
+	public String login(HttpServletRequest req,@Valid UserDTO userDTO,Errors errors,Model model){
 		if(errors.hasErrors()){
 			model.addAttribute("hint", "请输入有效的登录信息");
 			return "login";
 		}else{
 			String ipAddress=req.getRemoteAddr();
-			if(userService.login(user, ipAddress)){
+			if(userService.login(userDTO)){
 				return "redirect:index";
 			}else{
 				model.addAttribute("hint", "输入的用户名或密码有误");
